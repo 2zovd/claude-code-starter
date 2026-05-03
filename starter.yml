@@ -1,0 +1,24 @@
+name: claude-code-starter
+version: 0.1.0
+description: Claude Code project template for Vue and Nuxt development
+
+presets:
+  nuxt-app:
+    description: Nuxt 3, Pinia, VueUse, @nuxt/eslint, Vitest
+    primary_use: SSR sites, dashboards, full-stack apps
+  vue-vite:
+    description: Vue 3, Vite, Pinia, VueUse, @antfu/eslint-config, Vitest
+    primary_use: SPAs, client-only tools, landing pages
+  _empty:
+    description: Minimal scaffold — use with stack-recipes/
+    primary_use: Any stack without a dedicated preset
+
+stack_recipes:
+  - node-bot.md
+  - python-uv.md
+  - astro.md
+  - component-library.md
+
+bootstrap_entry: INIT.md
+min_node_version: "20.0.0"
+min_pnpm_version: "9.0.0"

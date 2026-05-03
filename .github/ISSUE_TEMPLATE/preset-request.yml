@@ -1,0 +1,36 @@
+name: Preset request
+description: Request a new preset or stack recipe.
+labels: [enhancement]
+body:
+  - type: dropdown
+    id: type
+    attributes:
+      label: Contribution type
+      options:
+        - New preset (full working setup in presets/)
+        - New stack recipe (guide in stack-recipes/)
+    validations:
+      required: true
+
+  - type: input
+    id: stack
+    attributes:
+      label: Stack / technology
+      placeholder: "e.g. SvelteKit, Express, FastAPI"
+    validations:
+      required: true
+
+  - type: textarea
+    id: use_case
+    attributes:
+      label: Use case
+      description: What kind of projects would this preset serve?
+    validations:
+      required: true
+
+  - type: checkboxes
+    id: willing
+    attributes:
+      label: Contribution
+      options:
+        - label: I am willing to build and verify this preset myself

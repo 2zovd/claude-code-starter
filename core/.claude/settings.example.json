@@ -1,0 +1,91 @@
+{
+  "_readme": "Rename to settings.json. Hooks are deterministic — they run regardless of what Claude decides. Use them for must-happen-every-time enforcement. Adjust commands to match your project's package.json scripts.",
+
+  "_mcp_readme": "MCP servers extend Claude's capabilities (filesystem access, web search, databases, GitHub, etc.). Remove this block if you don't need MCP. See https://modelcontextprotocol.io for the full server list.",
+  "mcpServers": {
+    "_note": "Remove this _note key before use. Examples below — uncomment what you need.",
+
+    "filesystem": {
+      "_comment": "Gives Claude read/write access to directories outside the workspace. Useful for scripts that touch multiple repos.",
+      "command": "npx",
+      "args": ["-y", "@modelcontextprotocol/server-filesystem", "/path/to/allowed/dir"]
+    },
+
+    "github": {
+      "_comment": "GitHub API: read/create issues, PRs, files. Requires GITHUB_PERSONAL_ACCESS_TOKEN in env.",
+      "command": "npx",
+      "args": ["-y", "@modelcontextprotocol/server-github"],
+      "env": {
+        "GITHUB_PERSONAL_ACCESS_TOKEN": "${GITHUB_PERSONAL_ACCESS_TOKEN}"
+      }
+    },
+
+    "sqlite": {
+      "_comment": "Run SQL queries against a local SQLite database. Replace the path with your actual db file.",
+      "command": "npx",
+      "args": ["-y", "@modelcontextprotocol/server-sqlite", "/path/to/db.sqlite"]
+    }
+  },
+
+  "permissions": {
+    "allow": [
+      "Bash(pnpm install)",
+      "Bash(pnpm add *)",
+      "Bash(pnpm remove *)",
+      "Bash(pnpm dev)",
+      "Bash(pnpm build)",
+      "Bash(pnpm generate)",
+      "Bash(pnpm preview)",
+      "Bash(pnpm typecheck)",
+      "Bash(pnpm lint)",
+      "Bash(pnpm lint:fix)",
+      "Bash(pnpm test)",
+      "Bash(pnpm test:run)",
+      "Bash(pnpm test:ui)",
+      "Bash(git status)",
+      "Bash(git diff*)",
+      "Bash(git log*)",
+      "Bash(git add*)",
+      "Bash(git commit*)",
+      "Bash(git push)",
+      "Bash(git checkout*)",
+      "Bash(git branch*)",
+      "Bash(gh pr*)",
+      "Bash(gh issue*)"
+    ],
+    "deny": [
+      "Bash(git push --force*)",
+      "Bash(git reset --hard*)",
+      "Bash(rm -rf*)",
+      "Bash(npm *)",
+      "Bash(yarn *)",
+      "Bash(npx *)"
+    ]
+  },
+
+  "hooks": {
+    "PostToolUse": [
+      {
+        "matcher": "Edit|Write",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "pnpm lint:fix --reporter=silent 2>&1 || true",
+            "_note": "Auto-fix lint/format on every file edit. The || true prevents non-fatal warnings from blocking work."
+          }
+        ]
+      }
+    ],
+    "Stop": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "pnpm typecheck 2>&1",
+            "_note": "Typecheck runs before Claude ends its turn. If it fails, Claude sees the error and fixes before declaring done."
+          }
+        ]
+      }
+    ]
+  }
+}

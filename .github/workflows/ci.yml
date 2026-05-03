@@ -1,0 +1,45 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+jobs:
+  verify-presets:
+    name: Verify preset (${{ matrix.preset }})
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        preset: [nuxt-app, vue-vite]
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: pnpm/action-setup@v4
+        with:
+          version: 9
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: pnpm
+          cache-dependency-path: presets/${{ matrix.preset }}/pnpm-lock.yaml
+
+      - name: Install
+        run: pnpm install
+        working-directory: presets/${{ matrix.preset }}
+
+      - name: Type check
+        run: pnpm typecheck
+        working-directory: presets/${{ matrix.preset }}
+
+      - name: Lint
+        run: pnpm lint
+        working-directory: presets/${{ matrix.preset }}
+
+      - name: Test
+        run: pnpm test:run
+        working-directory: presets/${{ matrix.preset }}
