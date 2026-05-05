@@ -1,5 +1,7 @@
 ---
+name: new-component
 description: Scaffold a new Vue component with proper TypeScript, tests, and documentation. Usage: /new-component ComponentName [description]
+disable-model-invocation: true
 ---
 
 # /new-component $ARGUMENTS

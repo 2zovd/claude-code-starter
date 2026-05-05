@@ -1,5 +1,7 @@
 ---
+name: plan-implement
 description: Structured plan-then-implement workflow. Use for any change touching more than one file or when the approach is unclear. Prevents wasted implementation work from wrong assumptions.
+disable-model-invocation: true
 ---
 
 # /plan-implement $ARGUMENTS

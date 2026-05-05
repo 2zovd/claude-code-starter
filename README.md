@@ -9,12 +9,15 @@
 ## What you get
 
 - A concise `CLAUDE.md` kept under 150 lines — because [bloated CLAUDE.md files cause Claude to ignore instructions](https://www.humanlayer.dev/blog/writing-a-good-claude-md)
+- An `AGENTS.md` for cross-platform AI agent context (Cursor, Copilot, and others read this too)
 - Detailed standards in `agent_docs/` loaded on demand, not on every session
 - Vue/Nuxt-specific patterns, composable conventions, and testing guidance
-- Slash commands for common workflows (`/plan-implement`, `/new-component`)
+- Skills for common workflows (`/plan-implement`, `/new-component`)
 - A code-reviewer subagent with read-only tools and isolated context
+- Agent Teams ready — subagents coordinate across parallel sessions
 - Deterministic hooks: auto-format on every edit, typecheck before every turn ends
 - Two battle-tested presets with working configs, CI, and lockfiles
+- Plugin-compatible structure — skills, hooks, and subagents can be packaged as a Claude Code plugin
 
 ## Presets
 
@@ -56,7 +59,7 @@ claude-code-starter/
 │   │   └── verification.md
 │   └── .claude/
 │       ├── agents/              # Subagents (code-reviewer)
-│       ├── commands/            # Slash commands (/plan-implement, /new-component)
+│       ├── skills/              # Skills (/plan-implement, /new-component)
 │       └── settings.example.json
 │
 ├── presets/

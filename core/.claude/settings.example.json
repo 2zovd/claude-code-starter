@@ -64,6 +64,29 @@
   },
 
   "hooks": {
+    "SessionStart": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "echo 'Session started. Run pnpm typecheck if picking up unfinished work.' 2>&1 || true",
+            "_note": "Optional: runs once when Claude Code starts. Replace with a project health check if useful."
+          }
+        ]
+      }
+    ],
+    "PreToolUse": [
+      {
+        "matcher": "Bash",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "echo \"$CLAUDE_TOOL_INPUT\" | grep -qE '^(curl|wget|ssh|scp)' && echo 'BLOCK: network command requires approval' && exit 1 || true",
+            "_note": "Example: block specific Bash commands before Claude runs them. Exit 1 to block, exit 0 to allow."
+          }
+        ]
+      }
+    ],
     "PostToolUse": [
       {
         "matcher": "Edit|Write",
@@ -83,6 +106,17 @@
             "type": "command",
             "command": "pnpm typecheck 2>&1",
             "_note": "Typecheck runs before Claude ends its turn. If it fails, Claude sees the error and fixes before declaring done."
+          }
+        ]
+      }
+    ],
+    "PreCompact": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "echo 'Compacting context. Critical state preserved by CLAUDE.md and open files.' 2>&1 || true",
+            "_note": "Optional: runs before context compaction. Use to log state or write a summary file before history is compressed."
           }
         ]
       }

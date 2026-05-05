@@ -30,7 +30,7 @@ Recipes in `stack-recipes/` are markdown guides Claude follows when using `_empt
 
 ### Improvements to `core/`
 
-Changes to `agent_docs/` or `.claude/` should be broadly applicable — not specific to one project or stack. Cite sources for factual claims. Lean toward removing over adding.
+Changes to `agent_docs/`, `.claude/skills/`, or `.claude/agents/` should be broadly applicable — not specific to one project or stack. Cite sources for factual claims. Lean toward removing over adding.
 
 ### Bug fixes
 

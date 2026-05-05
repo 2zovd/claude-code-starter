@@ -44,8 +44,9 @@ Ask these questions **one at a time**:
 1. Copy everything from `presets/<chosen>/` to the project root
 2. Move `core/` contents to root:
    - `core/CLAUDE.md` → `./CLAUDE.md`
+   - `core/AGENTS.md` → `./AGENTS.md`
    - `core/agent_docs/` → `./agent_docs/`
-   - `core/.claude/` → `./.claude/`
+   - `core/.claude/` → `./.claude/` (contains `skills/`, `agents/`, `settings.example.json`)
 3. Rename `.claude/settings.example.json` → `.claude/settings.json`
 4. Delete: `presets/`, `core/`, `stack-recipes/`, `INIT.md`, `starter.yml`
 
@@ -69,6 +70,10 @@ Replace placeholders using interview answers:
 - Gotchas section → items from Q5, or leave placeholder comment
 
 Keep the file under 150 lines.
+
+For personal overrides that should not be shared with the team (local paths, experimental rules), use `CLAUDE.local.md` in the project root — it is already in `.gitignore`.
+
+Alternatively, run `/init` to let Claude generate a CLAUDE.md from codebase analysis, then merge with this template.
 
 ---
 

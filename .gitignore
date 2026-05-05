@@ -8,8 +8,9 @@ Thumbs.db
 *.swp
 *.swo
 
-# Claude Code local settings (machine-specific permissions)
+# Claude Code — local/personal files (machine-specific, not for sharing)
 .claude/settings.local.json
+CLAUDE.local.md
 
 # Dependencies
 node_modules/

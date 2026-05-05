@@ -62,3 +62,15 @@ Vague "tests pass" without specifics is a yellow flag.
 ## When verification fails
 
 State the failure clearly, propose the fix, verify the fix. If you've failed twice on the same issue: stop, `/clear`, restart with a better-scoped prompt incorporating what you learned.
+
+---
+
+## References
+
+Uncomment the imports you need. Claude loads them on demand — keep this list short.
+
+<!--
+@agent_docs/engineering-standards.md
+@agent_docs/frontend-patterns.md
+@agent_docs/project-structure.md
+-->
