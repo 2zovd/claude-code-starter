@@ -1,8 +1,0 @@
-node_modules/
-.nuxt/
-.output/
-dist/
-*.local
-CLAUDE.local.md
-.DS_Store
-coverage/

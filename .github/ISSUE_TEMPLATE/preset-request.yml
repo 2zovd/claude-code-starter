@@ -1,5 +1,5 @@
-name: Preset request
-description: Request a new preset or stack recipe.
+name: Contribution request
+description: Suggest an improvement to guides, templates, or examples.
 labels: [enhancement]
 body:
   - type: dropdown
@@ -7,24 +7,26 @@ body:
     attributes:
       label: Contribution type
       options:
-        - New preset (full working setup in presets/)
-        - New stack recipe (guide in stack-recipes/)
-    validations:
-      required: true
-
-  - type: input
-    id: stack
-    attributes:
-      label: Stack / technology
-      placeholder: "e.g. SvelteKit, Express, FastAPI"
+        - Improve a guide (guides/)
+        - Add or improve an example (examples/)
+        - Improve a template (templates/)
+        - Other
     validations:
       required: true
 
   - type: textarea
-    id: use_case
+    id: problem
     attributes:
-      label: Use case
-      description: What kind of projects would this preset serve?
+      label: What's wrong or missing?
+      description: Describe what doesn't work well, is confusing, or is absent.
+    validations:
+      required: true
+
+  - type: textarea
+    id: proposal
+    attributes:
+      label: Proposed change
+      description: What should be added, changed, or removed?
     validations:
       required: true
 
@@ -33,4 +35,4 @@ body:
     attributes:
       label: Contribution
       options:
-        - label: I am willing to build and verify this preset myself
+        - label: I am willing to submit a PR for this change

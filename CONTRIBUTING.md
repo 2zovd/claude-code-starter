@@ -4,50 +4,55 @@ Contributions welcome. Read this first to understand what fits and what doesn't.
 
 ## Core principles — non-negotiable
 
-1. **`CLAUDE.md` stays under 150 lines.** Longer files cause Claude to ignore instructions. Details belong in `agent_docs/`.
-2. **Presets must work on fresh install.** `pnpm install && pnpm typecheck && pnpm lint && pnpm test:run` must pass from a clean clone. No exceptions.
-3. **Tools enforce style, not CLAUDE.md.** Linting, formatting, type-checking belong in config files and hooks — not in the session prompt.
-4. **Working configs only.** No LLM-generated configs without human verification. Every preset ships with a tested lockfile.
+1. **`CLAUDE.md` stays under 150 lines.** Longer files cause Claude to ignore instructions. Details belong in `agent_docs/` (generated per-project at bootstrap — not present in this repo).
+2. **Tools enforce style, not text instructions.** Linting, formatting, type-checking belong in config files and hooks — not in the session prompt.
+3. **No stack-specific content in the universal layer.** Guides, templates, and the code-reviewer subagent must work for any language and any framework.
 
 ## Types of contributions
 
-### New preset (most valuable)
+### Improving a guide
 
-1. Open an issue to confirm fit before building
-2. Create `presets/<name>/` with a complete, working setup
-3. Verify: `pnpm install && pnpm typecheck && pnpm lint && pnpm test:run && pnpm build` from a fresh clone
-4. Update `starter.yml` to register the preset
-5. Update `INIT.md` Step 3 to include the new preset as an option
-6. Add a `CHANGELOG.md` entry under Unreleased
-7. Open a PR with the verification output pasted
+Files in `guides/` are the highest-leverage contribution. A good guide improvement:
+- Adds a concrete example where an abstract rule existed
+- Removes advice that doesn't generalize across stacks
+- Fixes something Claude consistently misapplies
 
-### New or improved stack recipe
+To update a guide: edit the file, open a PR explaining what was wrong and what was improved.
 
-Recipes in `stack-recipes/` are markdown guides Claude follows when using `_empty`. A good recipe:
-- Provides exact commands (not "install dependencies somehow")
-- Lists key gotchas for `CLAUDE.md` at the bottom
-- Ends with a clear verification chain
+### Adding or improving an example
 
-### Improvements to `core/`
+`examples/` contains reference implementations showing what a well-configured project looks like.
 
-Changes to `agent_docs/`, `.claude/skills/`, or `.claude/agents/` should be broadly applicable — not specific to one project or stack. Cite sources for factual claims. Lean toward removing over adding.
+A good example:
+- Uses a neutral, universally understood project type (not a personal or company project)
+- Demonstrates all key files: CLAUDE.md, AGENTS.md, at least one skill
+- Includes realistic domain rules and notes — not placeholder text
+- Shows a skill that has a clear verification step
+
+To add an example: create a new directory under `examples/`, follow the structure in `examples/node-cli-tool/`, open a PR.
+
+### Improving templates
+
+Files in `templates/` are the starting scaffolds Claude fills in during bootstrap.
+
+Changes should keep templates stack-neutral. A good template has clear placeholders and comments explaining what each section is for. Remove content that only makes sense for one language or framework.
 
 ### Bug fixes
 
-Most valuable bugs: a preset's verification chain fails on a fresh clone, or INIT.md bootstrap leaves the project broken.
+Most valuable bugs: bootstrap produces a broken or nonsensical result for a specific type of project, or CLAUDE.md/AGENTS.md contains outdated advice.
 
 ## What we won't accept
 
-- Adding style guidelines to `CLAUDE.md` that a linter should handle
-- Presets with `node_modules` committed or missing lockfiles
-- Stack recipes that rely on third-party services to install
-- Changes that push `CLAUDE.md` past 150 lines
+- Presets for specific tech stacks (use the dynamic bootstrap approach instead)
+- Stack-specific patterns in shared guides or templates
+- Examples based on personal, commercial, or NDA-constrained projects
+- Advice that applies only to one language or framework in a universal-layer file
 
 ## Versioning
 
 - **MAJOR**: breaking change to bootstrap protocol or file layout
-- **MINOR**: new preset, new recipe, new agent_doc
-- **PATCH**: fixes, dependency bumps, documentation
+- **MINOR**: new guide, new example, improved template
+- **PATCH**: fixes, clarifications, documentation corrections
 
 ## License
 

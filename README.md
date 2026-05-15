@@ -1,31 +1,33 @@
 # claude-code-starter
 
-> A Claude Code project template for Vue, Nuxt, Node, Python, and more. Drop it into a new repo and get a working, production-grade AI-augmented setup in under a minute.
+> Describe your project idea — Claude sets up the entire development environment for you.
 
 [![CI](https://github.com/2zovd/claude-code-starter/actions/workflows/ci.yml/badge.svg)](https://github.com/2zovd/claude-code-starter/actions/workflows/ci.yml)
 [![License: MIT](https://img.shields.io/badge/License-MIT-green.svg)](LICENSE)
 [![GitHub Template](https://img.shields.io/badge/Use%20this-Template-blue?logo=github)](https://github.com/2zovd/claude-code-starter/generate)
 
-## What you get
+## What it does
 
-- A concise `CLAUDE.md` kept under 150 lines — because [bloated CLAUDE.md files cause Claude to ignore instructions](https://www.humanlayer.dev/blog/writing-a-good-claude-md)
-- An `AGENTS.md` for cross-platform AI agent context (Cursor, Copilot, and others read this too)
-- Detailed standards in `agent_docs/` loaded on demand, not on every session
-- Vue/Nuxt-specific patterns, composable conventions, and testing guidance
-- Skills for common workflows (`/plan-implement`, `/new-component`)
-- A code-reviewer subagent with read-only tools and isolated context
-- Agent Teams ready — subagents coordinate across parallel sessions
-- Deterministic hooks: auto-format on every edit, typecheck before every turn ends
-- Two battle-tested presets with working configs, CI, and lockfiles
-- Plugin-compatible structure — skills, hooks, and subagents can be packaged as a Claude Code plugin
+This template gives Claude Code a bootstrap protocol. You describe your project — as a spec, a few sentences, or a markdown document — and Claude:
 
-## Presets
+1. Decides the optimal tech stack for your project
+2. Installs dependencies and initializes the project
+3. Creates a `CLAUDE.md` with domain rules extracted from your description
+4. Creates an `AGENTS.md` for cross-tool AI context
+5. Generates project-specific slash commands (skills) for repeated workflows
+6. Configures hooks so formatting and typechecking run automatically
+7. Makes a first git commit
 
-| Preset | Stack | Use for |
-|---|---|---|
-| `nuxt-app` | Nuxt 3, Pinia, VueUse, @nuxt/eslint, Vitest | SSR sites, dashboards, full-stack apps |
-| `vue-vite` | Vue 3, Vite, Pinia, VueUse, @antfu/eslint-config, Vitest | SPAs, client-only tools, landing pages |
-| `_empty` | None | Any other stack — see `stack-recipes/` |
+After bootstrap, the template infrastructure is deleted. What remains is a cleanly configured project tailored to your specific idea.
+
+## What you get after bootstrap
+
+- `CLAUDE.md` — concise session context (under 150 lines) with your stack, commands, and domain rules
+- `AGENTS.md` — cross-platform context for Claude Code, Cursor, Copilot, and others
+- `.claude/settings.json` — hooks for auto-format on edit and typecheck before Claude ends a turn
+- `.claude/skills/` — slash commands tailored to your project's specific workflows
+- `agent_docs/` — detailed reference material loaded on demand, not every session
+- `.claude/agents/code-reviewer.md` — isolated code review subagent
 
 ## Quick start
 
@@ -34,8 +36,9 @@
 1. Click **"Use this template"** → Create new repository
 2. Clone your new repo
 3. Open Claude Code in the project root
-4. Say: `Read INIT.md and bootstrap this project`
-5. Claude interviews you, applies the right preset, customizes `CLAUDE.md`, cleans up
+4. Say: `Read INIT.md and set up my project`
+5. Paste your project description when asked — spec document, bullet points, or a few sentences
+6. Claude proposes the setup plan, waits for your approval, then executes
 
 ### Option B — Clone manually
 
@@ -43,53 +46,66 @@
 git clone https://github.com/2zovd/claude-code-starter.git my-project
 cd my-project
 rm -rf .git && git init
-# Open Claude Code and say: Read INIT.md and bootstrap this project
+# Open Claude Code and say: Read INIT.md and set up my project
 ```
 
 ## Repository layout
 
 ```
 claude-code-starter/
-├── core/                        # Stack-agnostic Claude Code foundation
-│   ├── CLAUDE.md                # Session context — kept under 150 lines
-│   ├── agent_docs/              # Detailed standards, loaded on demand
-│   │   ├── engineering-standards.md
-│   │   ├── frontend-patterns.md  ← Vue/Nuxt specific
-│   │   ├── project-structure.md
-│   │   └── verification.md
-│   └── .claude/
-│       ├── agents/              # Subagents (code-reviewer)
-│       ├── skills/              # Skills (/plan-implement, /new-component)
-│       └── settings.example.json
 │
-├── presets/
-│   ├── nuxt-app/                # Nuxt 3 — working, CI-verified
-│   ├── vue-vite/                # Vue 3 + Vite — working, CI-verified
-│   └── _empty/                  # Minimal scaffold for other stacks
+├── INIT.md                    # Bootstrap protocol — Claude reads this on first run
 │
-├── stack-recipes/               # Setup guides for stacks without a preset
-│   ├── node-bot.md
-│   ├── python-uv.md
-│   ├── astro.md
-│   └── component-library.md
+├── guides/                    # How-to guides Claude reads during bootstrap
+│   ├── how-to-claude-md.md    # What makes an effective CLAUDE.md
+│   ├── how-to-agents-md.md    # How to write cross-platform AGENTS.md
+│   ├── how-to-skills.md       # How to create Claude Code slash commands
+│   ├── how-to-hooks.md        # How to configure deterministic hooks
+│   └── how-to-agent-docs.md   # When and how to use agent_docs/
 │
-├── INIT.md                      # Bootstrap protocol — Claude reads this on first run
-└── starter.yml                  # Template manifest
+├── templates/                 # Skeleton files filled in during bootstrap
+│   ├── CLAUDE.md.template
+│   ├── AGENTS.md.template
+│   └── settings.json
+│
+├── examples/                  # Reference implementation
+│   └── node-cli-tool/         # Example of a well-configured TypeScript CLI project
+│       ├── CLAUDE.md
+│       ├── AGENTS.md
+│       └── .claude/skills/new-transformer/SKILL.md
+│
+└── .claude/
+    └── agents/
+        └── code-reviewer.md   # Universal code review subagent
 ```
+
+All of `guides/`, `templates/`, and `examples/` are deleted after bootstrap. The result is a clean project with no template overhead.
+
+## What kind of project description works
+
+Any format — Claude extracts what it needs:
+
+> "A CLI tool that converts Markdown to HTML. TypeScript, Node.js. The output should support custom CSS themes via a flag."
+
+> "A REST API for a task manager. Python, FastAPI, PostgreSQL. Users can create tasks, assign them, set deadlines. Auth via JWT."
+
+> "Resume as Code — a developer-first resume builder. JSON data + pluggable templates + Git versioning. Generates HTML, DOCX, PDF from a single source of truth. Tailoring for specific companies via override files."
+
+Or paste an entire product spec — the longer the description, the more context Claude has to configure your project accurately.
 
 ## Why this structure
 
-**`CLAUDE.md` stays short.** It loads into every session and competes with Claude Code's ~50 built-in instructions. Longer files cause uniform degradation across all rules — the short file wins. Details live in `agent_docs/` and are read on demand.
+**Claude decides the stack dynamically.** Technology best practices change faster than template files. Rather than shipping pre-baked presets that age, Claude uses its current knowledge to choose dependencies, config, and tooling for your specific project.
 
-**Presets ship with working configs.** LLMs hallucinate API surfaces and conflate library versions. Every preset is CI-verified on fresh install — no guessing, no debugging generated configs.
+**Guides teach Claude how to configure, not what to use.** The `guides/` directory describes what makes a good CLAUDE.md, how to write effective skills, and when to use agent_docs/. Claude applies these principles to your project — the output is always project-specific.
 
-**Hooks enforce what CLAUDE.md can only request.** Format-on-edit and typecheck-before-done are in `settings.json` hooks, not in CLAUDE.md instructions. That makes them deterministic, not probabilistic.
+**Hooks enforce what instructions can only request.** Auto-format on edit and typecheck before done are deterministic behaviors — they run regardless of what Claude decides in a given turn.
 
-**`stack-recipes/` for everything else.** If you need a stack without a preset, `_empty` + the relevant recipe gives Claude a proven procedure to follow rather than improvising.
+**agent_docs/ keeps CLAUDE.md short.** Details that would bloat the session context live in separate files loaded on demand. CLAUDE.md stays under 150 lines; Claude reads the detail files when a topic becomes relevant.
 
-## Adding a new preset
+## Contributing
 
-See [CONTRIBUTING.md](CONTRIBUTING.md). The short version: build it, verify `pnpm install && pnpm typecheck && pnpm lint && pnpm test:run` passes on a fresh clone, update `starter.yml`, open a PR.
+See [CONTRIBUTING.md](CONTRIBUTING.md) to suggest improvements to guides, templates, or examples.
 
 ## License
 
